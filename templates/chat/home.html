@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<link href="{% static 'css/chat.css'%}" rel="stylesheet" />
+<div class="page-content page-container" id="page-content">
+    <div class="padding">
+
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+              <h1 class="display-4">Hey <i class="fa fa-fa-hand-lizard"></i><img class="img-circle" style="height:80px" src="https://img.icons8.com/emoji/512/waving-hand-emoji.png"></h1>
+              <p class="lead">Login to upload files and get data-driven response!</p>
+            </div>
+        </div>
+
+        
+          <div class="row container d-flex justify-content-center m-auto">
+            <div class="col-md-9">
+                <div class="card card-bordered rounded-top  border-dark">
+
+                    <div class="card-header bg-dark">
+                        <h4 class="card-title text-light"><strong>Chat</strong></h4>
+                        <a class="btn btn-xs btn-secondary" href="#" data-abc="true">Let's Chat App</a>
+                    </div>
+
+
+                    <div class="ps-container ps-theme-default ps-active-y" id="chat-content" style="overflow-y: scroll !important; height:400px !important; ">
+                        <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+                            <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;">
+
+                            </div>.
+                        </div>
+                        <div class="ps-scrollbar-y-rail" style="top: 0px; height: 0px; right: 2px;">
+                            <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 2px;">
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="publisher bt-1 border-light">
+                        <img class="avatar avatar-xs" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
+                        <input class="publisher-input" type="text" placeholder="Give it a try, ask something." name="question" id="question">
+                        <span class="publisher-btn file-group">
+                            
+                            
+                            {% if user.is_authenticated %}
+                                <label for="file-input">
+                                    <i class="fa fa-paperclip file-browser"></i>
+                                </label>
+                                <input id="file-input" type="file"/>
+                            {% else %}
+                                <a href="{% url 'user_auth:login'%}"><i class="fa fa-paperclip file-browser" ></i></a>
+                            {% endif %}
+                        
+                        </span>
+                        <a class="publisher-btn" href="#" data-abc="true"><i class="fa fa-smile"></i></a>
+                        <a class="publisher-btn text-info" onclick="getResponse()" data-abc="true"><i class="fa fa-paper-plane"></i></a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="{% static 'js/chat.js'%} "></script>
+{% endblock content %}

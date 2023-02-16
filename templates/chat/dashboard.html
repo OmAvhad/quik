@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<link href="{% static 'css/chat.css'%}" rel="stylesheet" />
+<div class="page-content page-container" id="page-content">
+    <div class="padding">
+        <div class="row d-flex justify-content-center m-auto">
+
+            <div class="col-md-3">
+                <div class="card-header text-light bg-dark">
+                    <h4 class="card-title"><strong>Uploaded Files</strong></h4>
+                </div>
+
+                <div class="border border-dark ps-container ps-theme-default ps-active-y" id="uploads" style="overflow-y: scroll !important; height:400px !important; ">
+                    <div class="card p-2 border">
+                        {% for f in uploads%}
+                        <div class="p-1 card-body border border-dark">
+                            <h6 class="card-title p-0">{{f.attachment.name}}</h6>
+                            <p class="card-text small ">{{f.uploaded_at}}</p>
+                          {% comment %} <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> {% endcomment %}
+                          {% comment %} <a href="#" class="btn btn-primary">Button</a> {% endcomment %}
+                        </div>
+                        {%endfor%}
+                      </div>
+                      
+                    </div>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input id="file-input" name="attachment" type="file"/>
+                        <button type="submit">Upload</button>
+                    </form>
+                </div>
+            <div class="col-md-9">
+                <div class="card card-bordered rounded-top border border-dark">
+
+                    <div class="card-header bg-dark">
+                        <h4 class="card-title text-light"><strong>Chat</strong></h4>
+                    </div>
+
+
+                    <div class="ps-container ps-theme-default ps-active-y" id="chat-content" style="overflow-y: scroll !important; height:400px !important; ">
+                        <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+                            <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;">
+
+                            </div>.
+                        </div>
+                        <div class="ps-scrollbar-y-rail" style="top: 0px; height: 0px; right: 2px;">
+                            <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 2px;">
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="publisher bt-1 border-light">
+                        <img class="avatar avatar-xs" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
+                        <input class="publisher-input" type="text" placeholder="Write something" name="question" id="question">
+                        <span class="publisher-btn file-group">
+                            
+                            
+                            {% comment %} {% if user.is_authenticated %}
+                                <label for="file-input">
+                                    <i class="fa fa-paperclip file-browser"></i>
+                                </label>
+                                <input id="file-input" type="file"/>
+                            {% else %}
+                                <a href="{% url 'user_auth:login'%}"><i class="fa fa-paperclip file-browser" ></i></a>
+                            {% endif %} {% endcomment %}
+                        
+                        </span>
+                        <a class="publisher-btn" href="#" data-abc="true"><i class="fa fa-smile"></i></a>
+                        <a class="publisher-btn text-info" onclick="getResponse()" data-abc="true"><i class="fa fa-paper-plane"></i></a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        $("#file-input").change(function(){
+            console.log(this.value)
+        });
+    });
+</script>
+<script type="text/javascript" src="{% static 'js/chat.js'%} "></script>
+{% endblock content %}

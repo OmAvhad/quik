@@ -1,0 +1,270 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<title></title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="{% static 'css/register.css' %}" rel="stylesheet" />
+
+<div class="container">
+    <div class="d-flex">
+        <div class="back-arrow">
+            <a href="{% url 'chat:home' %}" class="nav-link active">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M13.0469 19.9062C13.5156 19.4375 13.4688 18.7344 13.0469 18.2656L7.375 12.875H20.875C21.4844 12.875 22 12.4062 22 11.75V10.25C22 9.64062 21.4844 9.125 20.875 9.125H7.375L13.0469 3.78125C13.4688 3.3125 13.5156 2.60938 13.0469 2.14062L12.0156 1.10938C11.5938 0.6875 10.8438 0.6875 10.4219 1.10938L1.32812 10.25C0.859375 10.6719 0.859375 11.375 1.32812 11.7969L10.4219 20.9375C10.8438 21.3594 11.5469 21.3594 12.0156 20.9375L13.0469 19.9062Z"
+                    fill="black" />
+            </svg>
+            </a>
+ 
+</div>
+<div class="signup-form">
+    <div class="signup-title">Sign up</div>
+    <div class="signup-detail">
+        <form action="" method="POST">
+            {% csrf_token %}
+        <input type="hidden" name="type" id="type" class="signup-detail-input" value="{{type}}"/>
+        
+        <div class="signup-detail-text">Name</div>
+        <input type="text" name="name" id="name" class="signup-detail-input" />
+        <h6 align="left" id="name_check"></h6>
+
+        <div class="signup-detail-text">Email</div>
+        <input type="text" name="email" id="email" class="signup-detail-input" />
+        <h6 align="left" id="email_check"></h6>
+
+        <div class="signup-detail-text">Username</div>
+        <input type="text" name="username" id="username" class="signup-detail-input" />
+        <h6 align="left" id="username_check"></h6>
+
+        <div class="signup-detail-text">Password</div>
+        <input type="password" name="password" id="password" class="signup-detail-input" />
+        <h6 align="left" id="password_check"></h6>
+
+        <div class="signup-detail-text">Confirm Password</div>
+        <input type="password" name="cpassword" id="cpassword" class="signup-detail-input" />
+        <h6 align="left" id="cpassword_check"></h6>
+
+    </div>
+    <button id="submitbtn" type="Submit" class="signup-btn" onclick="registration_info()">Create</button>
+</form>
+</div>
+</div>
+</div>
+
+
+
+<script>
+
+    $(document).ready(function () {
+        $('#name_check').hide();
+
+        $('#username_check').hide();
+        $('#email_check').hide();
+        $('#password_check').hide();
+        $('#cpassword_check').hide();
+
+        var name_err = true;
+        var username_err = true;
+        var email_err = true;
+        var password_err = true;
+        var cpassword_err = true;
+
+        $('#name').keyup(function () {
+            name_check();
+        })
+        $('#username').keyup(function () {
+            username_check();
+        })
+        $('#email').keyup(function () {
+            email_check();
+        })
+        $('#password').keyup(function () {
+            password_check();
+        })
+        $('#cpassword').keyup(function () {
+            cpassword_check();
+        })
+
+
+
+        function name_check() {
+            var name_value = $('#name').val();
+            if (name_value.length == '') {
+                $('#name_check').show();
+                $('#name_check').html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please enter your name.");
+                $('#name_check').focus();
+                $('#name_check').css("color", "#ce4f48");
+                $('#name_check').css("align", "left");
+                name_err = false;
+                return false;
+            }
+            else {
+                $('#name_check').hide();
+            }
+        }
+
+        function username_check() {
+            var username_value = $('#username').val();
+            if (username_value.length == '') {
+                $('#username_check').show();
+                $('#username_check').html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please enter your username.");
+                $('#username_check').focus();
+                $('#username_check').css("color", "#ce4f48");
+                username_err = false;
+                return false;
+            }
+            else {
+                $('#username_check').hide();
+            }
+        }
+        function email_check() {
+            var email_value = $('#email').val();
+            if (email_value.length == '') {
+                $('#email_check').show();
+                $('#email_check').html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please enter your email address.");
+                $('#email_check').focus();
+                $('#email_check').css("color", "#ce4f48");
+                email_err = false;
+                return false;
+            }
+            else {
+                $('#email_check').hide();
+            }
+        }
+        function password_check() {
+            name_value = $('#name').val();
+            username_value = $('#username').val();
+            var password_value = $('#password').val();
+
+            if (password_value.includes("@")) {
+                var password_array = password_value.split("@");
+            }
+            else if (password_value.includes(".")) {
+                var password_array = password_value.split(".");
+            }
+            else if (password_value.includes(" ")) {
+                var password_array = password_value.split(" ");
+            }
+            else if (password_value.includes("_")) {
+                var password_array = password_value.split("_");
+            }
+            
+            var personal_info = name_value + username_value;
+            console.log(personal_info);
+            if (password_value.length == '') {
+                $('#password_check').show();
+                $('#password_check').html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please enter your password.");
+                $('#password_check').focus();
+                $('#password_check').css("color", "#ce4f48");
+                password_err = false;
+                return false;
+            }
+            else if (name_value.length == '') {
+                $('#password_check').show();
+                $('#password_check').html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please enter your name first.");
+                $('#password_check').focus();
+                $('#password_check').css("color", "#ce4f48");
+                password_err = false;
+                return false;
+            }
+
+            else if (username_value.length == '') {
+                $('#password_check').show();
+                $('#password_check').html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please enter your username first.");
+                $('#password_check').focus();
+                $('#password_check').css("color", "#ce4f48");
+                password_err = false;
+                return false;
+            }
+            else if (password_value.length < 9) {
+                $('#password_check').show();
+                $('#password_check').html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your Password must contain atleast 8 <br>&nbsp;&nbsp;&nbsp;&nbsp; characters.");
+                $('#password_check').focus();
+                $('#password_check').css("color", "#ce4f48");
+                password_err = false;
+                return false;
+            }
+            else if (personal_info.toLowerCase().includes(password_array[0].toLowerCase())) {
+                $('#password_check').show();
+                $('#password_check').html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password should not be similar to you <br>&nbsp;&nbsp;&nbsp;&nbsp; personal information.");
+                $('#password_check').focus();
+                $('#password_check').css("color", "#ce4f48");
+                password_err = false;
+                return false;
+            }
+            else {
+                $('#password_check').hide();
+            }
+        }
+        function cpassword_check() {
+            var cpassword_value = $('#cpassword').val();
+            var password_typed_value = $('#password').val();
+            if (cpassword_value.length == '') {
+                $('#cpassword_check').show();
+                $('#cpassword_check').html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please repeat your password");
+                $('#cpassword_check').focus();
+                $('#cpassword_check').css("color", "#ce4f48");
+                cpassword_err = false;
+                return false;
+            }
+            else if (cpassword_value != password_typed_value) {
+                $('#cpassword_check').show();
+                $('#cpassword_check').html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password does not match");
+                $('#cpassword_check').focus();
+                $('#cpassword_check').css("color", "#ce4f48");
+                cpassword_err = false;
+                return false;
+            }
+            else if (cpassword_value == password_typed_value) {
+                $('#cpassword_check').show();
+                $('#cpassword_check').html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password matched");
+                $('#cpassword_check').focus();
+                $('#cpassword_check').css("color", "#16a085");
+                cpassword_err = true;
+                return true;
+            }
+            else {
+                $('#cpassword_check').hide();
+            }
+        }
+
+        $('#submitbtn').click(function () {
+            name_err = true;
+            username_err = true;
+            email_err = true;
+            password_err = true;
+            cpassword_err = true;
+
+            name_check();
+            username_check();
+            email_check();
+            password_check();
+            cpassword_check();
+
+            if ((name_err == true) && (username_err == true) && (email_err == true) && (password_err == true) && (cpassword_err == true)) {
+                return true;
+            }
+            else{
+                return false;
+            }
+        });
+
+    });
+
+
+// Get values of inputs 
+
+function registration_info(){
+
+var registration_name_value = document.getElementById("name").value;
+var registration_username_value = document.getElementById("username").value;
+var registration_email_value = document.getElementById("email").value;
+var registration_password_value = document.getElementById("password").value;
+
+}
+
+    </script>
+
+{% endblock content %}

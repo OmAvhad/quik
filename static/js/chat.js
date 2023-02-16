@@ -24,24 +24,6 @@ function getResponse(){
             <p>`+question+`</p>
         </div>
         </div>`;
-        // var myHeaders = new Headers();
-        // myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-        // myHeaders.append("X-CSRFToken", getCookie("csrftoken"));
-        
-        // var urlencoded = new URLSearchParams();
-        // urlencoded.append("question", "tell me the table of 2");
-        
-        // var requestOptions = {
-        //   method: 'POST',
-        //   headers: myHeaders,
-        //   body: urlencoded,
-        //   redirect: 'follow'
-        // };
-        
-        // fetch("http://127.0.0.1:8000/v1/get-response", requestOptions)
-        //   .then(response => response.text())
-        //   .then(result => console.log(result))
-        //   .catch(error => console.log('error', error));
     
     var settings = {
         "url": "http://127.0.0.1:8000/v1/get-response",
